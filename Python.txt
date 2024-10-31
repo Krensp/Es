@@ -1,0 +1,67 @@
+
+class Libro:
+    def __init__(self, titulo=None, autor=None):
+        self.set_titulo(titulo)
+        self.set_autor(autor)
+        self.set_estado("Disponible")
+# Método para obtener el título del libro
+    def get_titulo(self):
+        return self._titulo
+# Método para establecer el título del libro
+    def set_titulo(self, value):
+        self._titulo = value
+# Método para obtener el autor del libro
+    def get_autor(self):
+        return self._autor
+# Método para establecer el autor del libro
+    def set_autor(self, value):
+        self._autor = value
+# Método para obtener el estado del libro (disponible o prestado)
+    def get_estado(self):
+        return self._estado
+# Método para establecer el estado del libro
+    def set_estado(self, value):
+        self._estado = value
+
+    def prestar_libro(self):
+        if self.get_estado() == "Disponible":
+            self.set_estado("Prestado")
+            return True
+        return False
+    def devolver_libro(self):
+        if self.get_estado() == "Prestado":
+            self.set_estado("Disponible")
+            return True
+        return False
+class Usuario:
+    def __init__(self, nombre=None, email=None):
+        self.set_nombre(nombre)
+        self.set_email(email)
+
+    def get_nombre(self):
+        return self._nombre
+
+    def set_nombre(self, value):
+        self._nombre = value
+
+    def get_email(self):
+        return self._email
+
+    def set_email(self, value):
+        self._email = value
+
+    def solicitar_prestamo(self, libro):
+        if libro.prestar_libro():
+            return f"{self.get_nombre()} ha prestado el libro '{libro.get_titulo()}.'"
+        return f"El libro '{libro.get_titulo()}' no está disponible."
+
+    def devolver_libro(self, libro):
+        if libro.devolver_libro():
+            return f"{self.get_nombre()} ha devuelto el libro '{libro.get_titulo()}.'"
+        return f"El libro '{libro.get_titulo()}' no está prestado."
+
+libro1 = Libro("2000", "Ingeniería de software")
+usuario1 = Usuario("Juan Pérez", "juan.perez@hotmail.com")
+
+print(usuario1.solicitar_prestamo(libro1))
+print(usuario1.devolver_libro(libro1))
